@@ -3,7 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-
+use Illuminate\Support\Facades\Schema;
+use App\Backend_menu;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -13,7 +14,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Schema::defaultStringLength(191);
+        view()->composer('backend.head.index',function($view){
+            $menu=Backend_menu::all();
+            $view->with("menus",$menu);
+        });
     }
 
     /**

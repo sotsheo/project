@@ -304,37 +304,48 @@
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">Menu</li>
         
-       
-       
+        <li class="header">Menu </li>
+        <?php $item=0;?>
+        <?php  foreach ($menus as $key => $menu): ?>
+          <?php foreach ($menus as $key => $menu_i){
+              if($menu_i["id_parent"]==$menu["id"]){
+                 $item++;
+                break;
+              }
+          } ?>
+
+          
+            <?php if($menu["id_parent"]==0 && $item!=0): ?>
+              <li class="active treeview">
+                <a href="#">
+                  <i class="fa fa-edit"></i> <span>{{$menu["name"]}}</span>
+                  <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+                </a>
+                
+                  <ul class="treeview-menu">
+                    <?php foreach ($menus as $key => $menu_item): ?>
+                      <?php if($menu_item["id_parent"]==$menu["id"]):?>
+                      <li><a href="pages/forms/general.html">
+                        <i class="fa fa-circle-o"></i>{{$menu_item["name"]}}</a></li>
+                      <?php endif;?>
+                     <?php endforeach;?>
+                  </ul>               
+              </li>
+              <?php endif;?>
+              <?php if($menu["id_parent"]==0 && $item==0):?>
+                <li>
+                  <a href="pages/mailbox/mailbox.html">
+                    <i class="fa fa-envelope"></i> <span>{{$menu["name"]}}</span>
+                    
+                  </a>
+                </li>
+              <?php endif;?>
+              <?php $item=0;?>
+        <?php endforeach;?>
         
-       
-        <li class="active treeview">
-          <a href="#">
-            <i class="fa fa-edit"></i> <span>Forms</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="pages/forms/general.html"><i class="fa fa-circle-o"></i> General Elements</a></li>
-            <li><a href="pages/forms/advanced.html"><i class="fa fa-circle-o"></i> Advanced Elements</a></li>
-            <li><a href="pages/forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a></li>
-          </ul>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-table"></i> <span>Tables</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="pages/tables/simple.html"><i class="fa fa-circle-o"></i> Simple tables</a></li>
-            <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
-          </ul>
-        </li>
        
         <li>
           <a href="pages/mailbox/mailbox.html">
@@ -358,49 +369,14 @@
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    @yield("content");
-    <!-- /.content -->
-  </div>
+  
   <!-- /.content-wrapper -->
   
 
   
   <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
-  <div class="control-sidebar-bg"></div>
-</div>
+ 
 <!-- ./wrapper -->
 
 <!-- jQuery 3 -->
-<script src="{{asset('public/css/bower_components/jquery/dist/jquery.min.js')}}"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="{{asset('public/css/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
-<!-- DataTables -->
-<script src="{{asset('public/css/bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('public/css/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
-<!-- SlimScroll -->
-<script src="{{asset('public/css/bower_components/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
-<!-- FastClick -->
-<script src="{{asset('public/css/bower_components/fastclick/lib/fastclick.js')}}"></script>
-<!-- AdminLTE App -->
-<script src="{{asset('public/dist/js/adminlte.min.js')}}"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{{asset('public/dist/js/demo.js')}}"></script>
-<!-- page script -->
-<script>
-  $(function () {
-    $('#example1').DataTable()
-    $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    })
-  })
-</script>
-</body>
-</html>

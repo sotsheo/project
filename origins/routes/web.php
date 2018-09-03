@@ -16,5 +16,10 @@ Route::get('/', function () {
 });
 Route::group(['prefix' => 'admin'], function () {
     Route::get('home', 'Admin@home');
+    Route::group(['prefix' => 'menu'],function(){
+    	Route::get('create', 'Backend_menus@create');
+    	Route::get('update', 'Backend_menus@update');
+    	Route::get('detete', 'Backend_menus@delete');
+    });
 });
 
